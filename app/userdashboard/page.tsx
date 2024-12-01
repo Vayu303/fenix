@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCart } from "../../context/CartProvider";
 import Container from "../components/Container";
+import CheckoutButton from "../components/CheckoutButton";
 
 axios.defaults.baseURL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -133,62 +134,6 @@ const UserDashboard = () => {
     router.push("/");
   };
 
-  const handleCheckout = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId");
-
-      if (!userId || !token) {
-        setError("Non sei autenticato. Effettua il login.");
-        router.push("/userdashboard");
-        return;
-      }
-
-      if (cartItems.length === 0) {
-        setError(
-          "Il carrello è vuoto. Aggiungi dei prodotti prima di procedere."
-        );
-        return;
-      }
-
-      const response = await axios.post(
-        "/server-api/checkout/create-order",
-        {
-          userId,
-          items: cartItems.map((item) => ({
-            productId: item.id, // Assicurati che sia una stringa valida
-            name: item.title,
-            price: item.price,
-            quantity: item.quantity,
-          })),
-          total: cartItems.reduce(
-            (acc, item) => acc + item.price * item.quantity,
-            0
-          ),
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const { orderId } = response.data;
-
-      if (orderId) {
-        router.push(`/checkout/shipping?orderId=${orderId}`);
-      } else {
-        throw new Error("ID ordine non trovato nella risposta.");
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error("Errore durante il checkout:", err.message);
-        setError(err.message || "Errore durante il checkout.");
-      } else {
-        console.error("Errore sconosciuto durante il checkout:", err);
-        setError("Errore sconosciuto durante il checkout.");
-      }
-    }
-  };
-
   const total = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   if (loading)
@@ -288,12 +233,7 @@ const UserDashboard = () => {
                       >
                         Svuota Carrello
                       </button>
-                      <button
-                        onClick={handleCheckout}
-                        className="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-900"
-                      >
-                        Procedi al Checkout
-                      </button>
+                      <CheckoutButton />
                     </div>
                   </div>
                 </div>
@@ -301,61 +241,63 @@ const UserDashboard = () => {
             </main>
           </div>
         ) : (
-          <div className="py-20 px-80">
-            <h2 className="text-xl font-bold mb-4">
-              {isRegistering ? "Register" : "Login"}
-            </h2>
-            {error && <p className="text-red-700">{error}</p>}
-            {isRegistering && (
+          <div className="pt-0 pb-10 px-6 sm:pt-32 sm:pb-16">
+            <div className="mx-auto w-full max-w-md sm:max-w-lg bg-white shadow-lg rounded-lg py-12 px-6 sm:py-16 sm:px-12">
+              <h2 className="text-xl font-bold mb-4">
+                {isRegistering ? "Registrazione" : "Login"}
+              </h2>
+              {error && <p className="text-red-700">{error}</p>}
+              {isRegistering && (
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className="w-full p-2 mb-2 border rounded"
+                />
+              )}
               <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={form.name}
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={form.email}
                 onChange={handleChange}
                 className="w-full p-2 mb-2 border rounded"
               />
-            )}
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full p-2 mb-2 border rounded"
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full p-2 mb-4 border rounded"
-            />
-            {isRegistering ? (
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                className="w-full p-2 mb-4 border rounded"
+              />
+              {isRegistering ? (
+                <button
+                  onClick={handleRegister}
+                  className="w-full bg-red-800 text-white px-4 py-2 rounded hover:bg-red-600"
+                >
+                  Registrati
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogin}
+                  className="w-full bg-red-800 text-white px-4 py-2 rounded"
+                  disabled={loading}
+                >
+                  Login
+                </button>
+              )}
               <button
-                onClick={handleRegister}
-                className="w-full bg-red-700 text-white px-4 py-2 rounded"
+                onClick={() => setIsRegistering(!isRegistering)}
+                className="mt-4 text-sm text-red-700 underline"
               >
-                Register
+                {isRegistering
+                  ? "Hai già un account? Login"
+                  : "Non hai un account? Registrati"}
               </button>
-            ) : (
-              <button
-                onClick={handleLogin}
-                className="w-full bg-red-700 text-white px-4 py-2 rounded"
-                disabled={loading}
-              >
-                Login
-              </button>
-            )}
-            <button
-              onClick={() => setIsRegistering(!isRegistering)}
-              className="mt-4 text-sm text-red-700 underline"
-            >
-              {isRegistering
-                ? "Already have an account? Login"
-                : "Don't have an account? Register"}
-            </button>
+            </div>
           </div>
         )}
       </Container>

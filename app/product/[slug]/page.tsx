@@ -7,11 +7,34 @@ import Image from "next/image";
 import Container from "../../components/Container";
 import BadgesList from "@/app/components/BadgeList";
 import NovitaCarousel from "../../components/NovitaCarousel";
+import { useEffect } from "react";
 
 const ProductPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const productId = parseInt(id || "0", 10);
-  const product = products.find((p) => p.id === productId);
+  const { slug } = useParams<{ slug: string }>(); // Cambia 'id' con 'slug'
+
+  // Trova il prodotto basandoti sullo slug
+  const product = products.find((p) => p.slug === slug);
+
+  // Scroll to top quando `slug` cambia + refresh per i meta tags
+  useEffect(() => {
+    // Aggiorna il titolo
+    //document.title = `${
+    //  product?.title || "Prodotto non trovato"
+    //} | Fenix Antiquariato`;
+
+    // Effettua lo scroll verso l'alto (quasi non visibile, si potrebbe eliminare)
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [slug]);
+
+  if (!product) {
+    return (
+      <>
+        <div className="text-center py-20 text-gray-600">
+          Prodotto non trovato
+        </div>
+      </>
+    );
+  }
 
   if (!product) {
     return (
@@ -113,7 +136,7 @@ const ProductPage = () => {
               </div>
 
               {/* Tabs for Details */}
-              <div className="mt-8">
+              <div className="pt-20">
                 <ul className="flex border-b">
                   <li className="mr-6">
                     <a

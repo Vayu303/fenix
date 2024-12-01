@@ -23,9 +23,9 @@ const Categories = () => {
     },
     {
       id: 4,
-      name: "Restaurati",
-      image: "/images/restaurati.jpg",
-      slug: "restaurati",
+      name: "Abbigliamento",
+      image: "/images/abbigliamento.jpg",
+      slug: "abbigliamento",
     },
   ];
 

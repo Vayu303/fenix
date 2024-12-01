@@ -3,6 +3,7 @@ import React from "react";
 import { useCart } from "../../context/CartProvider";
 import Link from "next/link";
 import Container from "../components/Container";
+import CheckoutButton from "../components/CheckoutButton";
 
 const CartPage: React.FC = () => {
   const { cartItems, removeFromCart, clearCart, totalItems, loading } =
@@ -54,12 +55,15 @@ const CartPage: React.FC = () => {
               <h3 className="text-xl font-semibold">
                 Totale ({totalItems} prodotti): €{total.toFixed(2)}
               </h3>
-              <button
-                onClick={clearCart}
-                className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
-              >
-                Svuota Carrello
-              </button>
+              <div className="flex flex-row gap-2">
+                <button
+                  onClick={clearCart}
+                  className="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800"
+                >
+                  Svuota Carrello
+                </button>
+                <CheckoutButton />
+              </div>
             </div>
           </div>
         )}

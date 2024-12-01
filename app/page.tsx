@@ -27,12 +27,12 @@ export default function Home() {
       <Banner />
       <Categories />
       <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <section className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
             Perché scegliere noi?
           </h2>
           <BadgesList />
-        </div>
+        </section>
       </section>
       <FeaturedProducts />
       <WhyChooseFenix />

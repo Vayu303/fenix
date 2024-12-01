@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="bg-white p-4 rounded-lg border border-transparent flex flex-col transition duration-300 hover:border-red-800 h-[400px] md:h-[350px] lg:h-[450px]">
       <Link
-        href={`/product/${product.id}`}
+        href={`/product/${product.slug}`}
         className="block border-b border-gray-200 overflow-hidden h-[200px] md:h-[180px] lg:h-[250px]"
       >
         <div className="w-full h-full relative">

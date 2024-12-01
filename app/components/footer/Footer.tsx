@@ -18,10 +18,10 @@ const Footer = () => {
               Categorie
             </h3>
             <ul className="flex flex-col">
-              <Link href="#">Arredamento</Link>
-              <Link href="#">Collezionismo</Link>
-              <Link href="#">Mirabilia</Link>
-              <Link href="#">Restaurato</Link>
+              <Link href="/collection/arredamento">Arredamento</Link>
+              <Link href="/collection/collezionismo">Collezionismo</Link>
+              <Link href="/collection/mirabilia">Mirabilia</Link>
+              <Link href="/collection/abbigliamento">Abbigliamento</Link>
             </ul>
           </FooterList>
           <FooterList>
@@ -29,7 +29,7 @@ const Footer = () => {
               Assistenza
             </h3>
             <ul className="flex flex-col">
-              <Link href="#">Contattaci</Link>
+              <Link href="/contatti">Contattaci</Link>
               <Link href="#">Spedizioni</Link>
               <Link href="#">Politiche di reso</Link>
               <Link href="#">FAQs</Link>

@@ -2,6 +2,7 @@
 
 export interface Product {
   id: number;
+  slug: string;
   title: string;
   image: string;
   additionalImages?: string[];
@@ -21,6 +22,7 @@ const products: Product[] = [
   {
     id: 1,
     title: "Mobile Vintage",
+    slug: "mobile-vintage",
     image: "/images/mobile-vintage-1.jpg", // Assicurati che l'immagine esista
     additionalImages: [
       "/images/prodotto1_1.jpg",
@@ -34,11 +36,12 @@ const products: Product[] = [
     novità: true,
     material: "Legno di noce",
     sizes: "150x100x180",
-    sku: "A0174",
+    sku: "A0001",
   },
   {
     id: 2,
-    title: "Lampada da Tavolo",
+    title: "Coppia di lampade",
+    slug: "coppia-di-lampade",
     image: "/images/lampada-da-tavolo-1.jpg",
     additionalImages: [
       "/images/prodotto1_1.jpg",
@@ -50,13 +53,14 @@ const products: Product[] = [
     category: "arredamento",
     stock: 1,
     novità: false,
-    material: "Legno di noce",
+    material: "Ceramica",
     sizes: "150x100x180",
-    sku: "A0174",
+    sku: "A0002",
   },
   {
     id: 3,
     title: "Orologio Antico",
+    slug: "orologio-antico",
     image: "/images/orologio-antico.jpg",
     additionalImages: [
       "/images/prodotto1_1.jpg",
@@ -64,17 +68,18 @@ const products: Product[] = [
       "/images/prodotto1_3.jpg",
     ],
     price: 200.0,
-    description: "Un orologio antico perfetto per i collezionisti.",
+    description: "Un orologio antico da tavolo, perfetto per i collezionisti.",
     category: "collezionismo",
     stock: 1,
     novità: true,
-    material: "Legno di noce",
+    material: "Ottone",
     sizes: "150x100x180",
-    sku: "A0174",
+    sku: "A0003",
   },
   {
     id: 4,
     title: "Vaso in Terracotta",
+    slug: "vaso-in-terracotta",
     image: "/images/vaso-terracotta.jpg",
     additionalImages: [
       "/images/prodotto1_1.jpg",
@@ -86,13 +91,14 @@ const products: Product[] = [
     category: "mirabilia",
     stock: 1,
     novità: true,
-    material: "Legno di noce",
+    material: "Terracotta",
     sizes: "150x100x180",
-    sku: "A0174",
+    sku: "A0004",
   },
   {
     id: 5,
     title: "Coppia di Poltrone",
+    slug: "coppia-di-poltrone",
     image: "/images/coppia-di-poltrone.jpg",
     additionalImages: [
       "/images/prodotto1_1.jpg",
@@ -104,13 +110,14 @@ const products: Product[] = [
     category: "arredamento",
     stock: 1,
     novità: true,
-    material: "Legno di noce",
+    material: "Cuoio",
     sizes: "150x100x180",
-    sku: "A0174",
+    sku: "A0005",
   },
   {
     id: 6,
-    title: "Lampadario Vintage",
+    title: "Porta Incenso Sfinge",
+    slug: "porta-incenso-sfinge",
     image: "/images/lampadario-vintage.jpg",
     additionalImages: [
       "/images/prodotto2_1.jpg",
@@ -129,6 +136,7 @@ const products: Product[] = [
   {
     id: 7,
     title: "Credenza Antica",
+    slug: "mobile-vintage",
     image: "/images/credenza-antica.jpg",
     additionalImages: [
       "/images/prodotto3_1.jpg",
@@ -147,6 +155,7 @@ const products: Product[] = [
   {
     id: 8,
     title: "Orologio da Tavolo",
+    slug: "mobile-vintage",
     image: "/images/orologio-tavolo.jpg",
     additionalImages: [
       "/images/prodotto4_1.jpg",
@@ -165,6 +174,7 @@ const products: Product[] = [
   {
     id: 9,
     title: "Divano Chesterfield",
+    slug: "mobile-vintage",
     image: "/images/divano-chesterfield.jpg",
     additionalImages: [
       "/images/prodotto5_1.jpg",
@@ -183,6 +193,7 @@ const products: Product[] = [
   {
     id: 10,
     title: "Specchio Barocco",
+    slug: "mobile-vintage",
     image: "/images/specchio-barocco.jpg",
     additionalImages: [
       "/images/prodotto6_1.jpg",
@@ -191,7 +202,7 @@ const products: Product[] = [
     ],
     price: 200.0,
     description: "Specchio in stile barocco con cornice dorata.",
-    category: "restaurati",
+    category: "abbigliamento",
     stock: 1,
     novità: true,
     material: "Legno di noce",
@@ -201,6 +212,7 @@ const products: Product[] = [
   {
     id: 11,
     title: "Coppia di Lampade",
+    slug: "mobile-vintage",
     image: "/images/specchio-barocco.jpg",
     additionalImages: [
       "/images/prodotto6_1.jpg",
@@ -219,6 +231,7 @@ const products: Product[] = [
   {
     id: 12,
     title: "Sottobicchieri Coca Cola",
+    slug: "mobile-vintage",
     image: "/images/sottobicchieri-cocacola.jpg",
     additionalImages: [
       "/images/prodotto6_1.jpg",

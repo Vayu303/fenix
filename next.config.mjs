@@ -10,8 +10,20 @@ dotenv.config({ path: path.resolve(__dirname, "./backend/.env") });
 
 const nextConfig = {
   webpack: (config) => {
+    config.optimization = {
+      ...config.optimization,
+      splitChunks: {
+        chunks: "all", // Codice riutilizzabile è separato in file più piccoli
+      },
+    };
     config.cache = false;
     return config;
+  },
+
+  reactStrictMode: true, // Abilita il controllo rigoroso di React
+  experimental: {
+    optimizeCss: true, // Abilita l'ottimizzazione CSS
+    scrollRestoration: true, // Ripristina la posizione dello scroll tra le pagine
   },
   env: {
     MONGO_URI: process.env.MONGO_URI,
