@@ -9,8 +9,11 @@ import registerRoutes from "./routes/register/route";
 import profileRoutes from "./routes/profile/route";
 import paymentRoutes from "./routes/payment/route";
 import checkoutRoutes from "./routes/checkout/route";
+import cookieParser from "cookie-parser";
+import logoutRoutes from "./routes/logout/route";
 
 const app = express();
+
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -24,6 +27,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Collegamento al database
 mongoose
@@ -35,8 +39,10 @@ mongoose
 app.use("/server-api/login", loginRoutes);
 app.use("/server-api/register", registerRoutes);
 app.use("/server-api/profile", profileRoutes);
+app.use("/server-api/logout", logoutRoutes);
 app.use("/server-api/payment", paymentRoutes);
 app.use("/server-api/checkout", checkoutRoutes);
+
 // Avvio del server
 app.listen(PORT, () => {
   console.log(`Server avviato sulla porta ${PORT}`);

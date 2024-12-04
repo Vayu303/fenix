@@ -1,10 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { useCart } from "../../context/CartProvider";
 import Container from "../components/Container";
 import CheckoutButton from "../components/CheckoutButton";
+import axios from "@/backend/server-api/utils/axiosConfig";
 
 axios.defaults.baseURL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -36,7 +37,7 @@ const UserDashboard = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      console.error("Token non presente. Utente non autenticato.");
+      //console.error("Token non presente. Utente non autenticato.");
       setUserData(null); // Resetta i dati utente se non c'è un token
       setLoading(false); // Imposta loading a false
       return;
@@ -54,7 +55,7 @@ const UserDashboard = () => {
 
       if (axios.isAxiosError(err)) {
         console.error(
-          "Errore imprevisto nel recupero dei dati utente:",
+          "Errore recupero dati, oppure token scaduto",
           err.response?.data || err.message
         );
       } else {
@@ -128,10 +129,17 @@ const UserDashboard = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setUserData(null);
-    router.push("/");
+  const handleLogout = async () => {
+    try {
+      await axios.post("/server-api/logout", {}, { withCredentials: true });
+      // Rimuovi i dati salvati localmente
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+      setUserData(null); // Resetta i dati utente
+      router.push("/"); // Reindirizza alla HOMEPAGE, eventualmente cambiare per reindirizzare al LOGIN
+    } catch (err) {
+      console.error("Errore durante il logout:", err);
+    }
   };
 
   const total = cartItems.reduce((acc, item) => acc + item.price, 0);
@@ -241,7 +249,15 @@ const UserDashboard = () => {
             </main>
           </div>
         ) : (
-          <div className="pt-0 pb-10 px-6 sm:pt-32 sm:pb-16">
+          <div
+            className="pt-0 pb-10 px-6 sm:pt-32 sm:pb-16"
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault(); // Previeni il comportamento predefinito
+                handleLogin();
+              }
+            }}
+          >
             <div className="mx-auto w-full max-w-md sm:max-w-lg bg-white shadow-lg rounded-lg py-12 px-6 sm:py-16 sm:px-12">
               <h2 className="text-xl font-bold mb-4">
                 {isRegistering ? "Registrazione" : "Login"}

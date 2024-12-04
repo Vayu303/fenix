@@ -5,12 +5,14 @@ import dbConnect from "../utils/dbConnect";
 import { User } from "../models/user";
 
 // Funzione per generare un token JWT
+const TOKEN_EXPIRATION = "1h"; // Durata del token
+
 const generateToken = (userId: string): string => {
   if (!process.env.JWT_SECRET) {
-    throw new Error("JWT_SECRET non definito nel file .env.");
+    throw new Error("JWT_SECRET non definito");
   }
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, {
-    expiresIn: "1h", // Token valido per 1 ora
+    expiresIn: TOKEN_EXPIRATION,
   });
 };
 
@@ -53,6 +55,14 @@ export const registerHandler = async (
     console.log("[Register Handler] Nuovo utente creato con ID:", newUser._id);
 
     const token = generateToken(newUser._id.toString());
+
+    // Imposta il cookie
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // True in produzione
+      maxAge: 60 * 60 * 1000, // 1 ora
+      sameSite: "strict",
+    });
 
     res.status(201).json({
       message: "Registrazione completata con successo",
@@ -105,6 +115,16 @@ export const loginHandler = async (
 
     const token = generateToken(user._id.toString());
 
+    // Imposta il cookie
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Solo HTTPS in produzione
+      maxAge: 60 * 60 * 1000, // 1 ora
+      sameSite: "strict",
+    });
+
+    console.log("Cookie ricevuto nel middleware:", req.cookies.jwt);
+
     res.status(200).json({
       message: "Login riuscito",
       token,
@@ -121,15 +141,20 @@ export const loginHandler = async (
 };
 
 // **Logout**
-export const logoutHandler = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
+
+export const logoutHandler = (_req: Request, res: Response) => {
   try {
-    // Qui puoi aggiungere logica per il logout se necessario
-    res.status(200).json({ message: "Logout effettuato con successo" });
-  } catch (error) {
-    console.error("Errore durante il logout:", error);
+    // Cancella il cookie JWT
+    res.clearCookie("jwt", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+    });
+    res.status(200).json({ message: "Logout completato con successo" });
+    return;
+  } catch (err) {
+    console.error("Errore durante il logout:", err);
     res.status(500).json({ message: "Errore del server durante il logout" });
+    return;
   }
 };

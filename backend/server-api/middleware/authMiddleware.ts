@@ -1,21 +1,27 @@
 import jwt from "jsonwebtoken";
-import { Response, NextFunction, RequestHandler } from "express";
+import { RequestHandler } from "express";
 import { User, IUser } from "../models/user";
 import { AuthenticatedRequest } from "../types/AuthenticatedRequest";
 
 export const verifyToken: RequestHandler = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    res
-      .status(401)
-      .json({ message: "Accesso negato. Token mancante o malformato." });
+  // Leggi il token dai cookie o dagli header
+  const token =
+    req.cookies?.jwt || (req.headers.authorization || "").split(" ")[1];
+  if (!token) {
+    console.error("Token mancante");
+    res.status(401).json({ message: "Accesso negato. Token mancante." });
     return;
   }
 
-  const token = authHeader.split(" ")[1];
+  if (!token) {
+    res.status(401).json({
+      message: "Accesso negato. Token mancante.",
+    });
+    return;
+  }
 
   try {
+    // Decodifica il token
     const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
       id: string;
     };
@@ -27,7 +33,7 @@ export const verifyToken: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    // Assicuriamo che la proprietà `user` sia del tipo `IUser`
+    // Aggiungi l'utente alla richiesta
     (req as AuthenticatedRequest).user = user.toObject() as IUser;
 
     next();
