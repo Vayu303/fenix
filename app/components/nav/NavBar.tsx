@@ -22,19 +22,8 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header
-      className="
-            
-            sticky  
-            top-0
-            w-full
-            bg-slate-50
-            z-30
-            shadow-sm
-            
-"
-    >
-      <Container>
+    <header className="sticky top-0 w-full bg-slate-50 z-30 shadow-sm">
+      <Container className="px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -42,25 +31,24 @@ const Navbar: React.FC = () => {
               <Image
                 src="/logo.png"
                 alt="Logo"
-                width={150}
-                height={150}
+                width={120}
+                height={120}
                 className="object-contain"
                 priority
               />
             </Link>
           </div>
 
-          {/* Placeholder per la ricerca */}
-
-          <div className="hidden lg:flex flex-grow mx-8 max-w-md">
+          {/* SearchBar */}
+          <div className="hidden lg:flex flex-grow ml-4 max-w-md">
             <SearchBar products={products} />
-            <button className="bg-red-800 text-white rounded-full ml-2 px-3.5 py-auto mr-10 hover:bg-red-700 transition">
+            <button className="bg-red-800 text-white rounded-full ml-2 px-3.5 py-2 hover:bg-red-700 transition">
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>
 
           {/* Links Navbar */}
-          <div className="hidden md:flex flex-grow justify-center items-center xl:space-x-10 lg:space-x-3 gap-3">
+          <nav className="hidden md:flex flex-grow justify-center items-center gap-4 whitespace-nowrap overflow-hidden">
             <Link
               href="/chi-siamo"
               className="text-gray-700 hover:text-red-800"
@@ -74,14 +62,14 @@ const Navbar: React.FC = () => {
               Blog
             </Link>
             <Link href="/catalogo">
-              <button className="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700 transition ">
+              <button className="bg-red-800 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
                 Catalogo
               </button>
             </Link>
-          </div>
+          </nav>
 
           {/* Icone Carrello e Login */}
-          <div className="hidden md:flex items-center space-x-6 ml-10">
+          <div className="hidden md:flex items-center space-x-6">
             <CartIcon />
             <Link href="/userdashboard">
               <FontAwesomeIcon
@@ -94,49 +82,70 @@ const Navbar: React.FC = () => {
           {/* Hamburger Menu per Mobile */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-gray-700 focus:outline-none"
+            className="md:hidden text-gray-700 focus:outline-none text-2xl"
           >
-            {isOpen ? "✖" : "☰"} {/* Icona menu hamburger */}
+            {isOpen ? "✖" : "☰"}
           </button>
         </div>
 
-        {/* Menu a comparsa per Mobile */}
-        <div
-          className={`absolute right-0 top-16 bg-slate-100 shadow-md transition-transform transform ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          } md:hidden`}
-        >
-          <div className="flex flex-col p-4">
-            <Link href="/chi-siamo" className="py-2">
-              Chi Siamo
-            </Link>
-            <Link href="/contatti" className="py-2">
-              Contatti
-            </Link>
-            <Link href="/blog" className="py-2">
-              Blog
-            </Link>
-            <Link href="/catalogo">
-              <button className=" py-2 hover:text-red-800 transition ">
-                Catalogo
-              </button>
-            </Link>
-            <div className="flex items-center space-x-4 mt-4">
-              <CartIcon />
-              <Link href="/userdashboard">
-                <FontAwesomeIcon
-                  icon={faUser}
-                  className="text-gray-700 cursor-pointer w-8 h-8"
-                />
-              </Link>
-            </div>
-          </div>
-        </div>
+        {/* Sidebar Mobile */}
+<div
+  className={`fixed inset-y-0 right-0 z-50 bg-slate-100 shadow-lg w-72 transform transition-transform duration-300 ${
+    isOpen ? "translate-x-0" : "translate-x-full"
+  }`}
+>
+  <div className="flex flex-col h-full">
+    {/* Header della Sidebar */}
+    <div className="flex justify-between items-center p-4 border-b">
+      <h2 className="text-lg font-semibold text-gray-800">Menu</h2>
+      <button
+        onClick={toggleMenu}
+        className="text-gray-600 hover:text-gray-900 focus:outline-none"
+      >
+        ✖
+      </button>
+    </div>
 
-        {/* Barra di ricerca su mobile sotto al logo */}
-        <div className="lg:hidden flex w-full px-4 py-4 max-w-[1920px] mx-auto">
+    {/* Links nella Sidebar */}
+    <div className="flex-grow p-4 space-y-6">
+      <Link href="/chi-siamo" className="block text-gray-700 hover:text-red-800">
+        Chi Siamo
+      </Link>
+      <Link href="/contatti" className="block text-gray-700 hover:text-red-800">
+        Contatti
+      </Link>
+      <Link href="/blog" className="block text-gray-700 hover:text-red-800">
+        Blog
+      </Link>
+      <Link href="/catalogo" className="block text-red-700 hover:text-red-800">
+        Catalogo
+      </Link>
+      <div className="flex items-center space-x-4">
+        <CartIcon />
+        <Link href="/userdashboard">
+          <FontAwesomeIcon
+            icon={faUser}
+            className="text-gray-700 cursor-pointer hover:text-red-700 w-8 h-8"
+          />
+        </Link>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Sfondo Semi-Trasparente */}
+<div
+  className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity ${
+    isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+  }`}
+  onClick={toggleMenu}
+/>
+
+
+        {/* Barra di ricerca su mobile */}
+        <div className="lg:hidden flex w-full mt-4 mb-4">
           <SearchBar products={products} />
-          <button className="bg-red-800 text-white rounded-full px-3 ml-2 px-3 py-2 mr-auto hover:bg-red-700 transition">
+          <button className="bg-red-800 text-white rounded-full px-3 ml-2 hover:bg-red-700 transition">
             <FontAwesomeIcon icon={faSearch} />
           </button>
         </div>

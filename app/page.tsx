@@ -9,6 +9,7 @@ import WhyChooseFenix from "./components/nav/WhyChooseFenix";
 import Novità from "./components/NovitaCarousel";
 import BadgesList from "./components/BadgeList";
 import products from "./data/products";
+import HomeDiscountBanner from "./components/nav/DiscountBanner";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -36,6 +37,7 @@ export default function Home() {
       </section>
       <FeaturedProducts />
       <WhyChooseFenix />
+      <HomeDiscountBanner/>
       <Reviews />
       <Novità products={products} />
       <Newsletter />

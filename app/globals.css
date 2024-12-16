@@ -2,22 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* styles/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-/* ! Reset */
+/* Global Reset */
 body,
 html {
-  font-family: "Intro", Arial, Helvetica, sans-serif;
-  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
+  background-color: #f9fafb;
 }
+
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
+
 h1,
 h2,
 h3,
@@ -27,75 +32,93 @@ h6,
 p,
 ol,
 ul {
-  margin: 0 0 1rem 0;
+  margin: 0;
   padding: 0;
 }
+
 ol,
 ul {
-  list-style-type: none;
+  list-style: none;
 }
-img {
-  height: auto;
-}
-h1 {
-  font-size: 4rem;
-}
-h2 {
-  font-size: 3rem;
-}
-h3 {
-  font-size: 2rem;
-}
-h4 {
-  font-size: 1rem;
-}
-h5 {
-  font-size: 0.8rem;
-}
-h6 {
-  font-size: 0.6rem;
-}
+
 a {
   text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Typography */
+h1 {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem; /* Spazio sotto */
+}
+
+h2 {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 600;
+  margin-bottom: 1.25rem; /* Spazio sotto */
+}
+
+h3 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: 600;
+  margin-bottom: 1rem; /* Spazio sotto */
+}
+
+h4 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 500;
+  margin-bottom: 0.75rem; /* Spazio sotto */
 }
 
 p {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1rem; /* 16px */
+  font-weight: 400;
+  margin-bottom: 1rem;
+  line-height: 1.8; /* Aumentata la spaziatura delle righe */
+  color: #181a1d
 }
 
-#carousel-container {
-  display: flex;
-  overflow: hidden;
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
 }
 
-#carousel-item {
-  min-width: 100%;
-  transition: transform 0.3s ease-in-out;
+/* Spaziature per le sezioni */
+.section {
+  padding-top: 4rem; /* Aggiunto spazio sopra la sezione */
+  padding-bottom: 4rem; /* Aggiunto spazio sotto la sezione */
 }
 
-button:focus {
-  outline: none;
+.section-title {
+  margin-bottom: 2rem; /* Spazio sotto il titolo della sezione */
+  text-align: center;
+  color: #374151;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.section-content {
+  margin-top: 2rem; /* Spazio sopra il contenuto della sezione */
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-in-out;
+.shadow-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* styles/globals.css */
-.carousel-indicator {
-  transition: background-color 0.3s ease, transform 0.3s ease;
+.rounded-lg {
+  border-radius: 12px;
 }
 
-.carousel-indicator:hover {
-  transform: scale(1.2);
+/* Spaziatura generale tra le sezioni */
+.spacing-y {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
 }

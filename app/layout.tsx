@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); // Carica il file .env
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/nav/NavBar";
 import Footer from "./components/footer/Footer";
@@ -10,10 +10,9 @@ import React from "react";
 import { CartProvider } from "../context/CartProvider";
 import CookieBanner from "./components/CookieBanner";
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ["latin"],
-
-  weight: ["300", "900"],
+  weight: ["300", "400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -29,13 +28,8 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body
-        className={`${poppins.className}
-      antialiased
-      text-slate-700
-      m-0
-      p-0
-      `}
-      >
+  className={`${inter.className} antialiased text-slate-900 m-0 p-0`}
+>
         <CartProvider>
           <div className="flex flex-col min-h-screen">
             <NavBar />

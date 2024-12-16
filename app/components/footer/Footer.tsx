@@ -39,7 +39,7 @@ const Footer = () => {
             <h3 className="text-2xl font-medium tracking-wide underline">
               Su di noi
             </h3>
-            <p>Il nostro negozio....</p>
+            <Link href="/chi-siamo" className="text-white">Il nostro negozio....</Link>
           </FooterList>
           <FooterList>
             <h3 className="text-2xl font-medium tracking-wide underline">

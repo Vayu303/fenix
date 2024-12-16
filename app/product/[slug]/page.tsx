@@ -79,7 +79,7 @@ const ProductPage = () => {
           </div>
 
           {/* Main Product Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-40">
             {/* Image Section */}
             <div className="space-y-6">
               <div className="relative w-full h-[600px]">
@@ -138,7 +138,7 @@ const ProductPage = () => {
               {/* Tabs for Details */}
               <div className="pt-20">
                 <ul className="flex border-b">
-                  <li className="mr-6">
+                  <li className="mr-6" id="details">
                     <a
                       href="#details"
                       className="text-gray-800 hover:text-red-800 font-medium"
@@ -146,54 +146,38 @@ const ProductPage = () => {
                       Dettagli
                     </a>
                   </li>
-                  <li className="mr-6">
-                    <a
-                      href="#reviews"
-                      className="text-gray-800 hover:text-red-800 font-medium"
-                    >
-                      Recensioni
-                    </a>
-                  </li>
+                 
                 </ul>
-                <div className="mt-4" id="details">
-                  <h2 className="text-xl font-semibold mb-2">
+                <div className="mt-4" >
+                  <h2 className="text-xl font-semibold mb-4">
                     Specifiche Tecniche
                   </h2>
-                  <ul className="list-disc list-inside text-gray-700">
-                    <li>Materiale: {product.material}</li>
-                    <li>Dimensioni: {product.sizes}</li>
-                    <li>Codice Prodotto: {product.sku}</li>
-                  </ul>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
+                      <h3 className="text-sm font-medium text-red-600">Materiale</h3>
+                      <p className="text-gray-800">{product.material}</p>
+                    </div>
+                    <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
+                      <h3 className="text-sm font-medium text-red-600">Dimensioni</h3>
+                      <p className="text-gray-800">{product.sizes}</p>
+                    </div>
+                    <div className="bg-gray-100 p-4 rounded-lg shadow-sm">
+                      <h3 className="text-sm font-medium text-red-600">Codice Prodotto</h3>
+                      <p className="text-gray-800">{product.sku}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-8" id="reviews">
-                  <h2 className="text-xl font-semibold mb-2">Recensioni</h2>
-                  {/* Simula recensioni */}
-                  {product.reviews?.length > 0 ? (
-                    product.reviews.map((review, index) => (
-                      <div key={index} className="border-b py-4">
-                        <p className="font-semibold text-gray-800">
-                          {review.user}
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {review.comment}
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-gray-600">
-                      Nessuna recensione disponibile.
-                    </p>
-                  )}
-                </div>
+
+                
+            </div>
+          </div>
+          </div>
                 <div className="mt-12">
                   <h2 className="text-2xl font-bold text-gray-800 mb-6">
                     I nostri valori
                   </h2>
                   <BadgesList />
                 </div>
-              </div>
-            </div>
-          </div>
 
           {/* Recommended Products */}
           <div className="mt-12">

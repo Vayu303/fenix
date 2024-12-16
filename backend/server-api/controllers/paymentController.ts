@@ -70,10 +70,10 @@ export const createCheckoutSession = async (
       mode: "payment",
       success_url: `${
         process.env.CLIENT_URL
-      }/success?orderId=${order._id.toString()}`,
+      }/success?orderId=${order._id.toString()}`, // Redirect to success page
       cancel_url: `${
         process.env.CLIENT_URL
-      }/cancel?orderId=${order._id.toString()}`,
+      }/cancel?orderId=${order._id.toString()}`, // Redirect to cancel page
       metadata: {
         orderId: order._id.toString(),
       },

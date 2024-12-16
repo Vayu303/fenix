@@ -1,18 +1,28 @@
 import { Metadata } from "next";
-import products from "../../data/products"; // Importa i dati dei prodotti
+import products from "../../data/products"; // Importa il tuo file statico
 
-// Funzione per trovare un prodotto basato sullo slug
+// Genera i parametri statici per le route dinamiche
+export async function generateStaticParams() {
+  return products.map((product) => ({ slug: product.slug }));
+}
+
+// Funzione per ottenere un prodotto statico
 async function getProductBySlug(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
-// Genera i metadati per la pagina del prodotto
+// Genera i metadati
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const product = await getProductBySlug(params.slug);
+  // Attendi la risoluzione di `params`
+  const resolvedParams = await params;
+
+  console.log("Params ricevuti:", resolvedParams);
+
+  const product = await getProductBySlug(resolvedParams.slug);
 
   if (!product) {
     return {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Container from "./Container";
 
 const CookieBanner: React.FC = () => {
@@ -34,7 +34,7 @@ const CookieBanner: React.FC = () => {
     >
       <Container>
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 py-6 px-6">
-          <p className="text-sm md:text-base text-center md:text-left">
+          <p className="text-white text-sm md:text-base text-center md:text-left">
             Questo sito utilizza solo i cookies strettamente necessari per il
             suo corretto funzionamento; <br /> per questo motivo non disponiamo
             di preferenze utente. Leggi la nostra{" "}

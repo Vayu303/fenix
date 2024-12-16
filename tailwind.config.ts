@@ -8,21 +8,36 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+      screens: {
+        xs: '480px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+      },
+      colors: {
+        primary: '#1d4ed8',
+        secondary: '#9333ea',
+        accent: '#f97316',
+        neutral: '#64748b',
+        background: '#f9fafb',
+      },
       keyframes: {
-        fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
       },
       animation: {
-        fadeInUp: "fadeInUp 1s ease-out forwards",
-      },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        fadeIn: 'fadeIn 0.5s ease-in-out',
       },
     },
   },
   plugins: [],
 };
+
 export default config;

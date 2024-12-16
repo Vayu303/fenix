@@ -44,7 +44,7 @@ const Categories = () => {
                   alt={category.name}
                   className="w-full h-60 object-cover rounded-lg"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition cursor-pointer">
+                <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition cursor-pointer rounded-lg">
                   <span className="text-white font-semibold text-xl">
                     {category.name}
                   </span>

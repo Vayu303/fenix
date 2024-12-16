@@ -158,7 +158,7 @@ const UserDashboard = () => {
       <Container>
         {userData ? (
           <div className="flex flex-col md:flex-row">
-            <aside className="w-full h-svh md:w-1/4 bg-gray-800 text-white p-6 mr-12 ">
+            <aside className="w-full h-100 md:h-svh md:w-1/4 bg-gray-800 text-white p-6 mr-12 ">
               <h2 className="text-xl font-semibold mb-6">Dashboard utente</h2>
               <nav className="flex flex-col space-y-4">
                 <button
@@ -230,7 +230,7 @@ const UserDashboard = () => {
                   ) : (
                     <p>Il tuo carrello è vuoto.</p>
                   )}
-                  <div className="mt-6 flex justify-between items-center">
+                  <div className="flex-col mt-6 lg:flex md:flex-row justify-between lg:items-center">
                     <h3 className="text-xl font-semibold mt-5">
                       Totale ({totalItems} prodotti): €{total.toFixed(2)}
                     </h3>
